@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Tasks from './components/Tasks';
-import AddTask from './components/AddTask';
+import Tasks from './tasks/Tasks';
+import AddTask from './tasks/AddTask';
 import {
   fetchTasks,
   deleteTaskRemote,
   addTaskRemote,
   fetchTask,
   updateTaskRemote,
-} from './helpers/tasks';
+} from './tasks/tasks-api';
 import Footer from './components/Footer';
-import About from './components/About';
+import About from './about/About';
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
