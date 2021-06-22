@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import About from './about/About';
+import { showAddTaskState, tasksState } from './atoms';
+import Footer from './components/Footer';
 import Header from './components/Header';
-import Tasks from './tasks/Tasks';
 import AddTask from './tasks/AddTask';
+import Tasks from './tasks/Tasks';
 import {
-  fetchTasks,
-  deleteTaskRemote,
   addTaskRemote,
+  deleteTaskRemote,
   fetchTask,
+  fetchTasks,
   updateTaskRemote,
 } from './tasks/tasks-api';
-import Footer from './components/Footer';
-import About from './about/About';
 
 function App() {
-  const [showAddTask, setShowAddTask] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  const showAddTask = useRecoilValue(showAddTaskState);
+  const [tasks, setTasks] = useRecoilState(tasksState);
 
   useEffect(() => {
     const getTasks = async () => {
@@ -48,11 +50,7 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Header
-          title="Hello"
-          onAdd={() => setShowAddTask(!showAddTask)}
-          showAdd={showAddTask}
-        />
+        <Header title="Hello" />
 
         <Route
           path="/"

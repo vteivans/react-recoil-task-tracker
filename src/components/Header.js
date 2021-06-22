@@ -1,19 +1,24 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { showAddTaskState } from '../atoms';
 import Button from './Button';
 
-function Header({ title, onAdd, showAdd }) {
+function Header({ title }) {
   const location = useLocation();
+  const [showAddTask, setShowAddTask] = useRecoilState(showAddTaskState);
 
   return (
     <header className="header">
       <h1>{title}</h1>
       {location.pathname === '/' && (
         <Button
-          onClick={onAdd}
-          color={showAdd ? 'red' : 'green'}
-          text={showAdd ? 'Close' : 'Add'}
+          onClick={() => {
+            setShowAddTask(!showAddTask);
+          }}
+          color={showAddTask ? 'red' : 'green'}
+          text={showAddTask ? 'Close' : 'Add'}
         />
       )}
     </header>
@@ -26,8 +31,6 @@ Header.defaultProps = {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired, // .isRequired is optional, if required
-  onAdd: PropTypes.func,
-  showAdd: PropTypes.bool,
 };
 
 // CSS in JS
